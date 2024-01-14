@@ -1,5 +1,7 @@
 const { sequelize } = require('./src/config/database');
 const modelo = require('./src/models/db_models');
+
+const routeApp = require('./src/routes/appRoutes');
 const express = require("express");
 const app = express();
 const port = 3005;
@@ -15,6 +17,7 @@ sequelize.sync({ force: false }).then(() => {
 });
 
 app.use(express.json());
+app.use('/api', routeApp);
 
 app.listen(port, () => {
     console.log(`App Farmacia-Luisito en http://localhost:${port}`);
