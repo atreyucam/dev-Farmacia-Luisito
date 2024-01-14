@@ -23,7 +23,7 @@ const Usuario = sequelize.define('Usuario',{
     direccion: {type: DataTypes.STRING(100), allowNull: false},
     telefono: {type: DataTypes.STRING, allowNull: false},
     emailUser: {type: DataTypes.STRING(50), allowNull:false, unique: true},
-    passwordUser: {type: DataTypes.STRING(30), allowNull: false},
+    passwordUser: {type: DataTypes.STRING(60), allowNull: false},
 },{tableName: 'Usuarios'});
 
 // 3. Tabla TipoMedicamento

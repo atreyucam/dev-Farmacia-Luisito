@@ -35,7 +35,9 @@ router.put('/rol/:id', rol.actualizarRol);
 router.delete('/rol/:id', rol.eliminarRol);
 
 // 2. Rutas - usuario
-router.post('/usuario', usuario.crearUsuario);
+router.post('/registro', usuario.register);
+router.post('/login', usuario.login);
+// 
 router.get('/usuario', usuario.obtenerUsuarios);
 router.get('/usuario/:id', usuario.obtenerUsuarioporId);
 router.put('/usuario/:id', usuario.actualizarUsuario);

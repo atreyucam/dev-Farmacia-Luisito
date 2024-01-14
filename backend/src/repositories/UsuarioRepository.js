@@ -21,6 +21,15 @@ class UsuarioRepository{
     async eliminarUsuario(id){
         return await Usuario.destroy({where: {id_usuario:id}});
     }
+
+    // Metodos de logica de negocio
+    async getByCedula(cedula){
+        return await Usuario.findOne({where: {cedula: cedula}});
+    }
+    async getByEmail(email){
+        return await Usuario.findOne({where: {emailUser: email}});
+    }
+
 }
 
 module.exports = new UsuarioRepository();
