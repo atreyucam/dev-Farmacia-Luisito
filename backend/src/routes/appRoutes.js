@@ -16,6 +16,11 @@ const proveedor = require('../controllers/ProveedorController');
 const compra = require('../controllers/CompraProveedorController');
 const detalleCompra = require('../controllers/DetalleCompraController');
 const alerta = require('../controllers/AlertaController');
+const configuracion = require('../controllers/ConfiguracionController');
+const sesionChat = require('../controllers/SesionesChatbotController');
+const mensajeChat = require('../controllers/MensajesChatController');
+const arcsa = require('../controllers/ControlARCSAcontroller');
+const medProv = require('../controllers/MedProvController');
 
 // inicio
 const router = express.Router();
@@ -126,6 +131,41 @@ router.get('/alerta', alerta.obtenerAlertas);
 router.get('/alerta/:id', alerta.obtenerAlertaporId);
 router.put('/alerta/:id', alerta.actualizarAlerta);
 router.delete('/alerta/:id', alerta.eliminarAlerta);
+
+// 16. Rutas - configuracion
+router.post('/configuracion', configuracion.crearConfiguracion);
+router.get('/configuracion', configuracion.obtenerConfiguraciones);
+router.get('/configuracion/:id', configuracion.obtenerConfiguracionporId);
+router.put('/configuracion/:id', configuracion.actualzarConfiguracion);
+router.delete('/configuracion/:id', configuracion.eliminarConfiguracion);
+
+// 17. Rutas - sesionesChat
+router.post('/sesionChat', sesionChat.crearSesion);
+router.get('/sesionChat', sesionChat.obtenerSesiones);
+router.get('/sesionChat/:id', sesionChat.obtenerSesionesporId);
+router.put('/sesionChat/:id', sesionChat.actualizarSesion);
+router.delete('/sesionChat/:id', sesionChat.eliminarSesion);
+
+// 18. Rutas - mensajeChat
+router.post('/mensajeChat', mensajeChat.crearMensaje);
+router.get('/mensajeChat', mensajeChat.obtenerMensajes);
+router.get('/mensajeChat/:id', mensajeChat.obtenerMensajesporId);
+router.put('/mensajeChat/:id', mensajeChat.actualizarMensaje);
+router.delete('/mensajeChat/:id', mensajeChat.eliminarMensaje);
+
+// 19. Rutas - ControlARCSA
+router.post('/arcsa', arcsa.crearControl);
+router.get('/arcsa', arcsa.obtenerControles);
+router.get('/arcsa/:id', arcsa.obtenerControlporId);
+router.put('/arcsa/:id', arcsa.actualizarControl);
+router.delete('/arcsa/:id', arcsa.eliminarControl);
+
+// 20. Rutas - medProv
+router.post('/medProv', medProv.crearMedProv);
+router.get('/medProv', medProv.obtenerAll_MedProv);
+router.get('/medProv/:id', medProv.obtenerMedProvporId);
+router.put('/medProv/:id', medProv.actualizarMedProv);
+router.delete('/medProv/:id', medProv.eliminarMedProv);
 
 // export
 module.exports = router;
