@@ -21,6 +21,19 @@ class ProveedorRepository{
     async eliminarProveedor(id){
         return await Proveedor.destroy({where: {id_proveedor:id}});
     }
+
+    // Metodo nuevo
+    async buscarOcrear(data){
+        const [proveedor, creado] = await Proveedor.findOrCreate({
+            where:{ruc: data.ruc},
+            defaults: data
+        });
+
+        if(creado){
+            console.log('Se creado un nuevo proveedor: ', proveedor);
+        }
+        return proveedor;
+    }
 }
 
 module.exports = new ProveedorRepository();

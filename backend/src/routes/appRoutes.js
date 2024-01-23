@@ -1,4 +1,5 @@
 const express = require('express');
+const upload = require('../config/multerConfig');
 
 // controladores
 const rol = require('../controllers/RolController');
@@ -21,6 +22,8 @@ const sesionChat = require('../controllers/SesionesChatbotController');
 const mensajeChat = require('../controllers/MensajesChatController');
 const arcsa = require('../controllers/ControlARCSAcontroller');
 const medProv = require('../controllers/MedProvController');
+// Para importaciones de archivos excel.
+const uploadExcel = require('../controllers/uploadController');
 
 // inicio
 const router = express.Router();
@@ -168,6 +171,10 @@ router.get('/medProv', medProv.obtenerAll_MedProv);
 router.get('/medProv/:id', medProv.obtenerMedProvporId);
 router.put('/medProv/:id', medProv.actualizarMedProv);
 router.delete('/medProv/:id', medProv.eliminarMedProv);
+
+// 
+// Ruta para importaciones de archivos excel
+router.post('/importarDatos', upload.single('archivo'), uploadExcel.importarDatos);
 
 // export
 module.exports = router;

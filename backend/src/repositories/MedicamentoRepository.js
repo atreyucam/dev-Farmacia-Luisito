@@ -21,6 +21,21 @@ class MedicamentoRepository{
     async eliminarMedicamento(id){
         return await Medicamento.destroy({where: {id_medicamento:id}});
     }
+
+    // Metodo nuevo
+    async findOrCreate(data) {
+        const [medicamento, created] = await Medicamento.findOrCreate({
+            where: { nombreMedicamento: data.nombre },
+            defaults: { 
+                nombreMedicamento: data.nombre,
+                // descripcion: data.descripcion, no le veo util para tu app. se te simplifica ♥
+                precioVenta: data.precioVenta,
+                exentoIVA: data.exentoIVA,
+                // otros campos si quieres.
+            }
+        });
+        return medicamento; // Retorna el medicamento encontrado o creado
+    }
 }
 
 module.exports = new MedicamentoRepository();
