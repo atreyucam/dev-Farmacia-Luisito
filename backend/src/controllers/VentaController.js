@@ -3,6 +3,7 @@ const detalleVentaRepository = require('../repositories/DetalleVentaRepository')
 const usuarioRepository = require('../repositories/UsuarioRepository');
 const medicamentoRepository = require('../repositories/MedicamentoRepository');
 const inventarioRepository = require('../repositories/InventarioRepository');
+const AlertaRepository = require('../repositories/AlertasRepository');
 
 
 class VentaController{
@@ -156,6 +157,13 @@ class VentaController{
 
                 // Actualizar inventario
                 await inventarioRepository.actualizarCantidadDisponible(inventario.id_inventario, inventario.cantidadDisponible - item.cantidad);
+                
+                // Verificar la caducidad y el stock después de actualizar el inventario
+                await AlertaRepository.verificarProductoCaducado(item.idMedicamento);
+                await AlertaRepository.verificarCaducidad(item.idMedicamento);
+                await AlertaRepository.verificarStock(item.idMedicamento);
+                await AlertaRepository.verificarStockVacio(item.idMedicamento);
+
             }
 
             res.status(200).json({

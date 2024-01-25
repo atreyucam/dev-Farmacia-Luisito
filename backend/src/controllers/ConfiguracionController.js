@@ -63,7 +63,6 @@ class ConfiguracionController{
         const configuracion = await ConfiguracionModel.findOne({nombreConfig: 'margenGanancia' });
         return configuracion ? parseFloat(configuracion.valor) : null;
     }
-
     
 }
 

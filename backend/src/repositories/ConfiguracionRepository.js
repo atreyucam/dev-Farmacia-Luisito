@@ -26,6 +26,11 @@ class ConfiguracionRepository{
     async findOne(whereClause) {
         return await Configuracion.findOne({ where: whereClause });
     }
+
+    async obtenerValorConfig(nombreConfig) {
+        const configuracion = await Configuracion.findOne({ where: { nombreConfig } });
+        return configuracion ? parseFloat(configuracion.valor) : null;
+    }
 }
 
 module.exports = new ConfiguracionRepository();

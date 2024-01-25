@@ -184,7 +184,7 @@ const Alerta = sequelize.define('Alerta',{
         autoIncrement: true,
     },
     tipoAlerta: {type: DataTypes.STRING(50), allowNull: false},
-    descripcion: {type: DataTypes.STRING(100), allowNull: false},
+    descripcion: {type: DataTypes.STRING(255), allowNull: false},
     fechaAlerta: {type: DataTypes.DATEONLY, allowNull: false},
     estado: {type:DataTypes.STRING, allowNull: false},
 },{tableName: 'Alertas'});
