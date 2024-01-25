@@ -2,12 +2,19 @@ require('dotenv').config(); // Da uso a variables de entorno
 const { sequelize } = require('./src/config/database');
 const modelo = require('./src/models/db_models');
 
+const routeApp = require('./src/routes/appRoutes');
 const express = require("express");
 const app = express();
-app.use(express.json());
-const routeApp = require('./src/routes/appRoutes');
-const port = 3005;
+const port = 4000;
+const cors = require("cors");  
+const morgan = require('morgan');
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cors({
+  origin: 'http://localhost:5173', // Reemplaza con la URL de tu aplicación frontend
+  credentials: true,
+}));
 
 // Comprobacion de tablas en PostgreSQL
 sequelize.sync({ force: false }).then(() => {
@@ -18,7 +25,8 @@ sequelize.sync({ force: false }).then(() => {
 
 app.use(express.json());
 app.use('/api', routeApp);
+app.use(express.static('public'));
 
 app.listen(port, () => {
     console.log(`App Farmacia-Luisito en http://localhost:${port}`);
-});  
+}); 
