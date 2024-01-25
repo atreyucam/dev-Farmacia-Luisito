@@ -90,9 +90,9 @@ router.put('/detalleCarrito/:id', detalleCarrito.actualzarDetalleCarrito);
 router.delete('/detalleCarrito/:id', detalleCarrito.eliminarDetalleCarrito);
 
 // 9. Rutas - venta
-router.post('/venta', venta.crearVenta);
+router.post('/realizarVenta', venta.realizarVenta);
 router.get('/venta', venta.obtenerVentas);
-router.get('/venta/:id', venta.obtenerVentaporId);
+router.get('/obtenerVenta/:id', venta.obtenerVentaporId);
 router.put('/venta/:id', venta.actualzarVenta);
 router.delete('/venta/:id', venta.eliminarVenta);
 

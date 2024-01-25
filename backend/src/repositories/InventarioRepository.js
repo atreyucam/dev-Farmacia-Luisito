@@ -27,6 +27,19 @@ class InventarioRepository{
     async eliminarInventario(id){
         return await Inventario.destroy({where: {id_inventario:id}});
     }
+
+    // Nuevo metodo
+    async obtenerLoteProximoCaducar(idMedicamento) {
+        return await Inventario.findOne({
+            where: { id_medicamento: idMedicamento },
+            order: [['fechaCaducidad', 'ASC']],
+            limit: 1
+        });
+    }
+
+    async actualizarCantidadDisponible(id, cantidad) {
+        return await Inventario.update({ cantidadDisponible: cantidad }, { where: { id_inventario: id } });
+    }
 }
 
 module.exports = new InventarioRepository();

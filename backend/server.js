@@ -2,9 +2,10 @@ require('dotenv').config(); // Da uso a variables de entorno
 const { sequelize } = require('./src/config/database');
 const modelo = require('./src/models/db_models');
 
-const routeApp = require('./src/routes/appRoutes');
 const express = require("express");
 const app = express();
+app.use(express.json());
+const routeApp = require('./src/routes/appRoutes');
 const port = 3005;
 
 
