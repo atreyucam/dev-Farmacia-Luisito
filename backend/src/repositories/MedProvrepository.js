@@ -21,6 +21,18 @@ class MedProv_Repository{
     async eliminarMedProv(id){
         return await MedicamentoProveedor.destroy({where: {id_medicamentoProveedor:id}});
     }
+
+    // nuevo Metodo
+    async findOrCreate(medicamentoProveedorData) {
+        const [medicamentoProveedor, created] = await MedicamentoProveedor.findOrCreate({
+            where: {
+                id_medicamento: medicamentoProveedorData.id_medicamento,
+                id_proveedor: medicamentoProveedorData.id_proveedor
+            },
+            defaults: medicamentoProveedorData
+        });
+        return medicamentoProveedor; // Retorna el registro encontrado o creado
+    }
 }
 
 module.exports = new MedProv_Repository();

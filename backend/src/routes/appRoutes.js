@@ -23,6 +23,7 @@ const mensajeChat = require('../controllers/MensajesChatController');
 const arcsa = require('../controllers/ControlARCSAcontroller');
 const medProv = require('../controllers/MedProvController');
 // Para importaciones de archivos excel.
+const uploadTipos = require('../controllers/Importaciones/uploadTipoMedicamentos');
 const uploadExcel = require('../controllers/uploadController');
 
 // inicio
@@ -174,6 +175,7 @@ router.delete('/medProv/:id', medProv.eliminarMedProv);
 
 // 
 // Ruta para importaciones de archivos excel
+router.post('/importarTipos', upload.single('archivo'), uploadTipos.importarTipos);
 router.post('/importarDatos', upload.single('archivo'), uploadExcel.importarDatos);
 
 // export

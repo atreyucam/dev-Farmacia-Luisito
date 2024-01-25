@@ -21,6 +21,21 @@ class TipoMedicamentoRepository{
     async eliminarTipoMedicamento(id){
         return await TipoMedicamento.destroy({where: {id_tipoMedicamento:id}});
     }
+
+    // Nuevo metodo
+    async buscarOcrear(data){
+        const [tipoMed, creado] = await TipoMedicamento.findOrCreate({
+            where:{descripcionTipo: data.descripcionTipo},
+            defaults: data
+        });
+        return tipoMed;
+    }
+    // Método para buscar un tipo de medicamento por su nombre
+    async buscarPorNombre(nombreTipo) {
+        return await TipoMedicamento.findOne({
+            where: { descripcionTipo: nombreTipo }
+    });
+}
 }
 
 module.exports = new TipoMedicamentoRepository();

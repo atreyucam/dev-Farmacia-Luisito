@@ -2,8 +2,14 @@
 const {Inventario} = require('../models/db_models');
 
 class InventarioRepository{
-    async crearInventario(usuarioData){
-        return await Inventario.create(usuarioData);
+    async crearInventario(data){
+        // Verificar si ya existe un lote con el mismo número
+        const loteExistente = await Inventario.findOne({ where: { numeroLote: data.numeroLote } });
+        if (loteExistente) {
+            throw new Error(`Lote con número ${data.numeroLote} ya existe`);
+        }
+
+        return await Inventario.create(data);
     }
 
     async obtenerTodoInventario(){

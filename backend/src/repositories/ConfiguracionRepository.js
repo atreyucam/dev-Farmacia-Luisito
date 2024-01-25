@@ -21,6 +21,11 @@ class ConfiguracionRepository{
     async eliminarConfiguracion(id){
         return await Configuracion.destroy({where: {id_configuracion:id}});
     }
+
+    // Nuevo metodo
+    async findOne(whereClause) {
+        return await Configuracion.findOne({ where: whereClause });
+    }
 }
 
 module.exports = new ConfiguracionRepository();

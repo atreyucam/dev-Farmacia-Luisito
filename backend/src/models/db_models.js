@@ -33,8 +33,9 @@ const TipoMedicamento = sequelize.define('TipoMedicamento',{
         primaryKey: true,
         autoIncrement: true,
     },
+    categoria: {type: DataTypes.STRING(15), allowNull:false},
     descripcionTipo: {type: DataTypes.STRING(50), allowNull: false},
-    requireReceta: { type: DataTypes.BOOLEAN, allowNull: false},
+    requiereReceta: { type: DataTypes.BOOLEAN, allowNull: false},
 },{tableName: 'TipoMedicamentos'});
 
 // 4. Tabla Medicamentos
@@ -46,8 +47,8 @@ const Medicamento = sequelize.define('Medicamentos',{
     },
     nombreMedicamento: {type: DataTypes.STRING(50), allowNull: false},
     // descripcion: {type: DataTypes.STRING, allowNull: false},
-    precioVenta: {type: DataTypes.DECIMAL, allowNull: false},
-    exentoIVA: {type: DataTypes.BOOLEAN, allowNull: false},
+    precioVenta: {type: DataTypes.DECIMAL, allowNull: true},
+    exentoIVA: {type: DataTypes.BOOLEAN, allowNull: true},
     urlImagen : {type: DataTypes.STRING, allowNull: true}
 },{tableName:'Medicamentos'});
 
@@ -59,7 +60,7 @@ const RecetaMedica = sequelize.define('RecetaMedica',{
         autoIncrement:true
     },
     nombreMedico: { type: DataTypes.STRING(50), allowNull: false},
-    fechaEmision: { type: DataTypes.DATE, allowNull: false},
+    fechaEmision: { type: DataTypes.DATEONLY, allowNull: false},
 },{tableName: "RecetasMedicas"});
 
 // 6. Tabla PedidosPendientes
@@ -71,7 +72,7 @@ const PedidoPendiente = sequelize.define('PedidoPendiente',{
     },
     detallePedido: {type: DataTypes.STRING(80), allowNull: false},
     estadoPedido: {type: DataTypes.STRING(30), allowNull: false},
-    fechaPedido: {type: DataTypes.DATE, allowNull: false},
+    fechaPedido: {type: DataTypes.DATEONLY, allowNull: false},
 },{tableName: 'PedidosPendientes'});
 
 // 7 Tabla CarritoCompras
@@ -81,7 +82,7 @@ const CarritoCompra = sequelize.define('CarritoCompra',{
         primaryKey: true,
         autoIncrement: true,
     },
-    fechaCreacion: {type: DataTypes.DATE, allowNull: false},
+    fechaCreacion: {type: DataTypes.DATEONLY, allowNull: false},
     estado: {type: DataTypes.STRING(30), allowNull: false},
 },{tableName: 'CarritoCompra'});
 
@@ -104,7 +105,7 @@ const Venta = sequelize.define('Venta',{
         autoIncrement: true,
     },
     numFacturaVenta: {type: DataTypes.INTEGER, allowNull: false},
-    fechaVenta: {type: DataTypes.DATE, allowNull: false},
+    fechaVenta: {type: DataTypes.DATEONLY, allowNull: false},
     subtotalVenta: {type: DataTypes.DECIMAL, allowNull: false},
     descuentoVenta: {type: DataTypes.DECIMAL, allowNull: false},
     IVA: {type: DataTypes.DECIMAL, allowNull: false},
@@ -129,10 +130,10 @@ const Inventario = sequelize.define('Inventario',{
         primaryKey: true,
         autoIncrement: true,
     },
-    numeroLote: {type: DataTypes.INTEGER, allowNull:false, unique: true},
+    numeroLote: {type: DataTypes.STRING(25), allowNull:false, unique: true},
     precioCompra: {type: DataTypes.DECIMAL, allowNull: false},
     cantidadDisponible: {type: DataTypes.INTEGER, allowNull: false},
-    fechaCaducidad: {type: DataTypes.DATE, allowNull: false},
+    fechaCaducidad: {type: DataTypes.DATEONLY, allowNull: false},
 },{tableName: 'Inventario'});
 
 //  12 Tabla Proveedores
@@ -156,7 +157,7 @@ const CompraProveedor = sequelize.define('CompraProveedor',{
         primaryKey: true,
         autoIncrement: true,
     },
-    fechaCompra: {type: DataTypes.DATE, allowNull: false},
+    fechaCompra: {type: DataTypes.DATEONLY, allowNull: false},
     numFacturaCompra: {type: DataTypes.INTEGER, allowNull: false},
     subtotalCommpra: {type: DataTypes.DECIMAL, allowNull: false},
     descuentoCompra: {type: DataTypes.DECIMAL, allowNull: false},
@@ -184,7 +185,7 @@ const Alerta = sequelize.define('Alerta',{
     },
     tipoAlerta: {type: DataTypes.STRING(50), allowNull: false},
     descripcion: {type: DataTypes.STRING(100), allowNull: false},
-    fechaAlerta: {type: DataTypes.DATE, allowNull: false},
+    fechaAlerta: {type: DataTypes.DATEONLY, allowNull: false},
     estado: {type:DataTypes.STRING, allowNull: false},
 },{tableName: 'Alertas'});
 
@@ -206,7 +207,7 @@ const SesionChatbot = sequelize.define('SesionChatbot',{
         primaryKey: true,
         autoIncrement: true,
     },
-    fechaHoraInicio: {type: DataTypes.DATE, allowNull: false},
+    fechaHoraInicio: {type: DataTypes.DATEONLY, allowNull: false},
     fechaHoraFin: {type: DataTypes.DATE, allowNull: false},
 },{tableName: 'SesionChatbot'});
 
@@ -229,7 +230,7 @@ const ControlARCSA = sequelize.define('ControlARCSA',{
         autoIncrement: true,
     },
     cantidadVendida: {type: DataTypes.INTEGER, allowNull: false},
-    fechaVenta: {type: DataTypes.DATE, allowNull: false},
+    fechaVenta: {type: DataTypes.DATEONLY, allowNull: false},
 },{tableName:'ControlARCSA'});
 
 // 20. tablaMedicamentoProveedor    

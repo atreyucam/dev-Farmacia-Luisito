@@ -1,5 +1,6 @@
 
 const {Medicamento} = require('../models/db_models');
+const configuracion = require('../controllers/ConfiguracionController');
 
 class MedicamentoRepository{
     async crearMedicamento(usuarioData){
@@ -25,17 +26,26 @@ class MedicamentoRepository{
     // Metodo nuevo
     async findOrCreate(data) {
         const [medicamento, created] = await Medicamento.findOrCreate({
-            where: { nombreMedicamento: data.nombre },
-            defaults: { 
-                nombreMedicamento: data.nombre,
-                // descripcion: data.descripcion, no le veo util para tu app. se te simplifica ♥
-                precioVenta: data.precioVenta,
-                exentoIVA: data.exentoIVA,
-                // otros campos si quieres.
-            }
+            where: { nombreMedicamento: data.nombreMedicamento },
+            defaults: data
         });
         return medicamento; // Retorna el medicamento encontrado o creado
     }
+
+    async calcularPrecioVenta(precioCompra) {
+        const margenGanancia = await configuracion.obtenerMargenGanancia();
+        if (margenGanancia !== null) {
+            return precioCompra + (precioCompra * margenGanancia / 100);
+        }
+        return precioCompra;
+    }
+
+    async actualizarPrecioVentaMedicamento(idMedicamento, precioCompra) {
+        const precioVenta = await this.calcularPrecioVenta(precioCompra);
+        await Medicamento.update({ precioVenta }, { where: { id_medicamento: idMedicamento }});
+    }
+    
+    
 }
 
 module.exports = new MedicamentoRepository();

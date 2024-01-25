@@ -57,6 +57,14 @@ class ConfiguracionController{
             res.status(500).json({error: error.message});
         }
     }
+
+    // Nuevos Metodos
+    async obtenerMargenGanancia() {
+        const configuracion = await ConfiguracionModel.findOne({nombreConfig: 'margenGanancia' });
+        return configuracion ? parseFloat(configuracion.valor) : null;
+    }
+
+    
 }
 
 module.exports = new ConfiguracionController();

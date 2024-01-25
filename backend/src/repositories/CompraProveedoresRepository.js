@@ -3,7 +3,8 @@ const {CompraProveedor} = require('../models/db_models');
 
 class CompraProveedorRepository{
     async crearCompra(usuarioData){
-        return await CompraProveedor.create(usuarioData);
+        const nuevaCompra = await CompraProveedor.create(usuarioData);
+        return nuevaCompra.id_compraProveedor;
     }
 
     async obtenerCompras(){
