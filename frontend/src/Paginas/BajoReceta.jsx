@@ -5,7 +5,7 @@ export default function BajoReceta() {
   return (
     <div>
       <NavbarCliente></NavbarCliente>
-      Bajo BajoReceta
+      Victor meco
     </div>
   )
 }

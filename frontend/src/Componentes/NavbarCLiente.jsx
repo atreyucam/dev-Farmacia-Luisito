@@ -1,9 +1,8 @@
 import React from "react";
-import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
-import Form from "react-bootstrap/Form";
 import NavbarBootstrap from "react-bootstrap/Navbar";
 import "bootstrap/dist/css/bootstrap.min.css";
+
 export default function NavbarCliente({ handleRegistroClick }) {
   return (
     <div>
@@ -16,16 +15,12 @@ export default function NavbarCliente({ handleRegistroClick }) {
           <NavbarBootstrap.Brand href="#" style={{ color: "#000000" }}>
             Farmacia Luisito
           </NavbarBootstrap.Brand>
-
-          <Form className="d-flex">
-            <Button
-              variant="dark"
-              onClick={handleRegistroClick}
-              style={{ color: "#a5d6a7" }}
-            >
-              Carrito de compras
-            </Button>
-          </Form>
+          <span
+            style={{ color: "#000000", cursor: "pointer",textSizeAdjust:"14px" }}
+            onClick={handleRegistroClick}
+          >
+            Carrito de compras
+          </span>
         </Container>
       </NavbarBootstrap>
     </div>
