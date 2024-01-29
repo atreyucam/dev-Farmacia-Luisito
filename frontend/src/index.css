@@ -5,10 +5,26 @@ body {
   margin: 0;
   padding: 0;
   background-image: url('./Imagenes/farmacia.jpg');
-  background-size: cover;
+  background-size: cover; 
   background-position: center;
   background-repeat: no-repeat;
+  background-attachment: fixed; 
   opacity: 0.9;
+  height: 100vh; 
+}
+
+.error-message {
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+.titulolista {
+  text-align: center;
+  background-color: white;
+  color: black;
+  padding: 10px;
+  border-radius: 10px;
 }
 
 .btn-success {
@@ -34,7 +50,6 @@ body {
   object-fit: cover; 
 }
 
-/* Agrega estos estilos al final de tu archivo CSS */
 .btn-primary.search-button {
   background-color: #a5d6a7;
   border-color: #000;
@@ -47,4 +62,15 @@ body {
 
 .fa-search {
   color: #000;
+}
+
+.btn-outline-secondary.search-button {
+  background-color: #a5d6a7;
+  border-color: #000;
+  color: #000; 
+}
+
+.btn-outline-secondary.search-button:hover {
+  background-color: #a5d6a7;
+  border-color: #000;
 }

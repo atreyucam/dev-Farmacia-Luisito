@@ -9,6 +9,7 @@ import Dashboard from "./Componentes/Dashboard";
 import Cliente1 from "./Paginas/Cliente1";
 import ProductosGeneral from "./Paginas/ProductosGenerales";
 import BajoReceta from "./Paginas/BajoReceta";
+import MostrarCliente from "./Paginas/MostrarCliente";
 
 /* Nueva version  version 3*/ 
 export default function App() {
@@ -21,7 +22,8 @@ export default function App() {
           <Route path="/regreso" element={<Pagina_General />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/cliente1" element={<Cliente1 />} />
-          <Route path="/produGenerales" element={<ProductosGeneral />} />
+          <Route path="/produGenerales" element={<ProductosGeneral/>} />
+          <Route path="/MostrarCliente" element={<MostrarCliente />} />
           <Route path="bajoReceta" element={<BajoReceta />} />
         </Routes>
       </BrowserRouter>

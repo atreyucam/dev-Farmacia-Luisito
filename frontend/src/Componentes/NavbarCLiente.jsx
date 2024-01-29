@@ -16,7 +16,7 @@ export default function NavbarCliente({ handleRegistroClick }) {
             Farmacia Luisito
           </NavbarBootstrap.Brand>
           <span
-            style={{ color: "#000000", cursor: "pointer",textSizeAdjust:"14px" }}
+            style={{ color: "#000000", cursor: "pointer", textSizeAdjust: "14px" }}
             onClick={handleRegistroClick}
           >
             Carrito de compras
