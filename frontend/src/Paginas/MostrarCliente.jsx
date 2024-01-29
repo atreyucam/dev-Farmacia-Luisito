@@ -2,13 +2,6 @@ import React, { useState, useEffect } from "react";
 import axiosInstance from "../config/configAxios";
 import { Button, Modal } from "react-bootstrap";
 import NavbarCliente from "../Componentes/NavbarCLiente";
-import {
-  validateCedula,
-  validateNombre,
-  validateDireccion,
-  validateTelefono,
-  validateEmail,
-} from "../Componentes/Validaciones";
 
 export default function MostrarCliente() {
   const [usuarios, setUsuarios] = useState([]);
@@ -59,16 +52,6 @@ export default function MostrarCliente() {
 
   const handleGuardarNuevoUsuario = async () => {
     try {
-      if (
-        !validateCedula(nuevoUsuarioData.cedula) ||
-        !validateNombre(nuevoUsuarioData.nombreUsuario) ||
-        !validateDireccion(nuevoUsuarioData.direccion) ||
-        !validateTelefono(nuevoUsuarioData.telefono) ||
-        !validateEmail(nuevoUsuarioData.emailUser)
-      ) {
-        console.error("Datos de usuario no válidos");
-        return;
-      }
       await axiosInstance.post("/registro", nuevoUsuarioData);
       const response = await axiosInstance.get("/usuario");
       setUsuarios(response.data);
@@ -108,16 +91,6 @@ export default function MostrarCliente() {
 
   const handleActualizarClick = async () => {
     try {
-      if (
-        !validateCedula(updatedUserData.cedula) ||
-        !validateNombre(updatedUserData.nombreUsuario) ||
-        !validateDireccion(updatedUserData.direccion) ||
-        !validateTelefono(updatedUserData.telefono) ||
-        !validateEmail(updatedUserData.emailUser)
-      ) {
-        console.error("Datos de usuario no válidos");
-        return;
-      }
       await axiosInstance.put(`/usuario/${updatedUserData.id_usuario}`, updatedUserData);
       setShowModal(false);
       fetchUsuarios();
@@ -154,9 +127,12 @@ export default function MostrarCliente() {
 
   return (
     <div>
+      
       <NavbarCliente />
 
-      <h1 className="titulolista">LISTA DE USUARIOS</h1>
+      <h1 className="titulolista"  >
+            LISTA DE USUARIOS
+      </h1>
 
       <Button variant="success" style={{ margin: "15px 10px" }} onClick={handleMostrarNuevoUsuarioModal}>
         Agregar Nuevo Usuario
@@ -217,7 +193,10 @@ export default function MostrarCliente() {
                 >
                   Actualizar
                 </Button>
-                <Button variant="danger" onClick={() => handleEliminar(usuario.id_usuario)}>
+                <Button
+                  variant="danger"
+                  onClick={() => handleEliminar(usuario.id_usuario)}
+                >
                   Eliminar
                 </Button>
               </td>
@@ -246,9 +225,6 @@ export default function MostrarCliente() {
                     })
                   }
                 />
-                {!validateCedula(updatedUserData.cedula) && (
-                  <span className="error-message">Cédula no válida</span>
-                )}
               </div>
               <div className="form-group">
                 <label>Nombre</label>
@@ -263,9 +239,6 @@ export default function MostrarCliente() {
                     })
                   }
                 />
-                {!validateNombre(updatedUserData.nombreUsuario) && (
-                  <span className="error-message">Nombre no válido</span>
-                )}
               </div>
               <div className="form-group">
                 <label>Direccion</label>
@@ -354,9 +327,6 @@ export default function MostrarCliente() {
                 })
               }
             />
-            {!validateCedula(nuevoUsuarioData.cedula) && (
-              <span className="error-message">Cédula no válida</span>
-            )}
           </div>
 
           <div className="form-group">
@@ -372,9 +342,6 @@ export default function MostrarCliente() {
                 })
               }
             />
-            {!validateNombre(nuevoUsuarioData.nombreUsuario) && (
-              <span className="error-message">Nombre no válido</span>
-            )}
           </div>
 
           <div className="form-group">
@@ -433,9 +400,6 @@ export default function MostrarCliente() {
                 })
               }
             />
-            {!validateEmail(nuevoUsuarioData.emailUser) && (
-              <span className="error-message">Correo electrónico no válido</span>
-            )}
           </div>
           <div className="form-group">
             <label>Contraseña</label>
