@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import jwtDecode from 'jwt-decode';
 import axios from 'axios';
 import { Container, Row, Col, Navbar, Nav } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 
 // obtener medicamentos
 const obtenerMedicamentos = async () => {
@@ -15,6 +16,12 @@ const obtenerMedicamentos = async () => {
 };
 
 export default function Dashboard() {
+  const navigate = useNavigate();
+
+  const irAVentas = () => {
+    navigate('/ventas'); // Ruta que corresponde al componente Ventas
+};
+
   const [loggedInUser, setLoggedInUser] = useState('');
   const [medicamentos, setMedicamentos] = useState([]);
   const [mostrarProductos, setMostrarProductos] = useState(false); 
@@ -26,9 +33,8 @@ export default function Dashboard() {
       setLoggedInUser(decodedToken.nombre); // Usa la clave correcta del token
       // console.log(loggedInUser);
     }
-
-     
   }, []);
+
   // Llamada para obtener los medicamentos
   const handleMostrarProductos = async () => { // Nueva función
     setMostrarProductos(true);
@@ -55,7 +61,7 @@ export default function Dashboard() {
               <Nav.Item onClick={handleMostrarProductos}>
                 <Nav.Link eventKey="link-2">Productos</Nav.Link> 
               </Nav.Item>
-              <Nav.Item>
+              <Nav.Item onClick={irAVentas}>
                 <Nav.Link eventKey="link-3">Ventas</Nav.Link>
               </Nav.Item>
             </Nav>

@@ -50,6 +50,7 @@ class MedicamentoRepository{
     async  obtenerInformacionMedicamentos() {
         const query = `
         SELECT 
+        "Medicamentos".id_medicamento,
         "Medicamentos"."nombreMedicamento",
         "TipoMedicamentos".categoria AS tipo,
         "TipoMedicamentos"."descripcionTipo" as descripcion,

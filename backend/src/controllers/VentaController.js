@@ -106,7 +106,7 @@ class VentaController{
             let totalVenta = 0;
 
             for (const item of detallesVenta) {
-                const medicamento = await medicamentoRepository.obtenerMedicamentoporId(item.idMedicamento);
+                const medicamento = await medicamentoRepository.obtenerMedicamentoporId(item.id_medicamento);
                 subtotalVenta += medicamento.precioVenta * item.cantidad;
             }
 
@@ -133,8 +133,8 @@ class VentaController{
 
             // Procesar detalles de la venta
             for (const item of detallesVenta) {
-                const medicamento = await medicamentoRepository.obtenerMedicamentoporId(item.idMedicamento);
-                const inventario = await inventarioRepository.obtenerLoteProximoCaducar(item.idMedicamento);
+                const medicamento = await medicamentoRepository.obtenerMedicamentoporId(item.id_medicamento);
+                const inventario = await inventarioRepository.obtenerLoteProximoCaducar(item.id_medicamento);
 
                 if (!inventario || inventario.cantidadDisponible < item.cantidad) {
                     return res.status(400).json({ message: `Stock insuficiente para el medicamento ${medicamento.nombreMedicamento}` });
@@ -142,7 +142,7 @@ class VentaController{
 
                 // Guardar los detalles para la respuesta
                 detallesRespuesta.push({
-                    idMedicamento: item.idMedicamento,
+                    id_medicamento: item.id_medicamento,
                     cantidad: item.cantidad,
                     precioUnitario: medicamento.precioVenta
                 });
@@ -159,10 +159,10 @@ class VentaController{
                 await inventarioRepository.actualizarCantidadDisponible(inventario.id_inventario, inventario.cantidadDisponible - item.cantidad);
                 
                 // Verificar la caducidad y el stock después de actualizar el inventario
-                await AlertaRepository.verificarProductoCaducado(item.idMedicamento);
-                await AlertaRepository.verificarCaducidad(item.idMedicamento);
-                await AlertaRepository.verificarStock(item.idMedicamento);
-                await AlertaRepository.verificarStockVacio(item.idMedicamento);
+                await AlertaRepository.verificarProductoCaducado(item.id_medicamento);
+                await AlertaRepository.verificarCaducidad(item.id_medicamento);
+                await AlertaRepository.verificarStock(item.id_medicamento);
+                await AlertaRepository.verificarStockVacio(item.id_medicamento);
 
             }
 

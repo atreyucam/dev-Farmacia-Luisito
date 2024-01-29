@@ -34,6 +34,16 @@ class UsuarioController{
         }
     }
 
+    async buscarPorCedula(req, res){
+        try {
+            const usuario = await UsuarioModel.getByCedula(req.params.cedula);
+            if (!usuario) return res.status(404).json({ message: 'Usuario no encontrado' });
+            res.json(usuario);
+        } catch (error) {
+            res.status(500).json({ error: error.message });
+        }
+    }
+
     async actualizarUsuario(req, res){
         try {
             const usuario = await UsuarioModel.actualzarUsuario(req.params.id, req.body);

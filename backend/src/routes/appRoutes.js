@@ -44,6 +44,7 @@ router.post('/login', usuario.login);
 // 
 router.get('/usuario', usuario.obtenerUsuarios);
 router.get('/usuario/:id', usuario.obtenerUsuarioporId);
+router.get('/usuarioCedula/:cedula', usuario.buscarPorCedula);
 router.put('/usuario/:id', usuario.actualizarUsuario);
 router.delete('/usuario/:id', usuario.eliminarUsuario);
 
