@@ -1,4 +1,5 @@
 
+const {sequelize} = require('../config/database');
 const {Medicamento} = require('../models/db_models');
 const configuracion = require('../controllers/ConfiguracionController');
 
@@ -10,6 +11,7 @@ class MedicamentoRepository{
     async obtenerMedicamentos(){
         return await Medicamento.findAll();
     }
+
 
     async obtenerMedicamentoporId(id){
         return await Medicamento.findByPk(id);
@@ -45,6 +47,29 @@ class MedicamentoRepository{
         await Medicamento.update({ precioVenta }, { where: { id_medicamento: idMedicamento }});
     }
     
+    async  obtenerInformacionMedicamentos() {
+        const query = `
+        SELECT 
+        "Medicamentos"."nombreMedicamento",
+        "TipoMedicamentos".categoria AS tipo,
+        "TipoMedicamentos"."descripcionTipo" as descripcion,
+        "Inventario"."cantidadDisponible" AS cantidad,
+        "Medicamentos"."precioVenta"
+    FROM 
+        public."Medicamentos"
+    INNER JOIN 
+        public."TipoMedicamentos" ON "Medicamentos"."id_tipoMedicamento" = "TipoMedicamentos"."id_tipoMedicamento"
+    INNER JOIN 
+       public."Inventario"  ON "Medicamentos".id_medicamento = "Inventario".id_medicamento;
+    `;
+    
+        try {
+            const result = await sequelize.query(query, { type: sequelize.QueryTypes.SELECT });
+            return result;
+        } catch (error) {
+            throw new Error('Error al obtener la información de los medicamentos: ' + error.message);
+        }
+    }
     
 }
 

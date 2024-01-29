@@ -109,7 +109,7 @@ class UsuarioController{
             const match = await bcrypt.compare(req.body.passwordUser, usuario.passwordUser);
             if (!match) return res.status(401).json({ message: 'Autenticación fallida clave' });
 
-            const token = jwt.sign({ userId: usuario.id_usuario }, process.env.JWT_SECRET, { expiresIn: '1h' });
+            const token = jwt.sign({ userId: usuario.id_usuario, rol: usuario.id_rol, nombre: usuario.nombreUsuario }, process.env.JWT_SECRET, { expiresIn: '1h' });
             res.json({ token });
         } catch (error) {
             res.status(500).json({ error: error.message });

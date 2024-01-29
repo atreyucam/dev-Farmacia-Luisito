@@ -12,7 +12,7 @@ class MedicamentoController{
 
     async obtenerMedicamentos(req, res){
         try {
-            const medicamento = await MedicamentoModel.obtenerMedicamentos();
+            const medicamento = await MedicamentoModel.obtenerInformacionMedicamentos();
             res.status(200).json(medicamento);  
         } catch (error) {
             res.status(500).json({error: error.message});

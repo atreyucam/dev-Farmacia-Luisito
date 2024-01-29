@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+
 import MyNavbar from "../Componentes/Navbar";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
@@ -10,6 +11,7 @@ import FondoImagen from "../Imagenes/farmacia.jpg";
 import axios from "axios";
 import { Alert } from "react-bootstrap";
 import {  useNavigate } from "react-router-dom";
+import jwtDecode from 'jwt-decode';
 
 export default function Pagina_General() {
   const navigate = useNavigate();  
@@ -31,17 +33,32 @@ export default function Pagina_General() {
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(
-        "http://localhost:4000/api/login",
-        usuario
-      );
-      console.log("Login exitoso:", response.data);
-      alert("Login exitoso");
-      // Aquí podrías guardar el token en localStorage y redirigir al usuario
-      // localStorage.setItem('token', response.data.token);
-      // history.push('/rutaLuegoDelLogin');
+      // const response = await axios.post(
+      //   "http://localhost:4000/api/login",
+      //   usuario
+      // );
+      // console.log("Login exitoso:", response.data);
+      // alert("Login exitoso");
+      // // Aquí podrías guardar el token en localStorage y redirigir al usuario
+      // // localStorage.setItem('token', response.data.token);
+      // // history.push('/rutaLuegoDelLogin');
+      // navigate("/dashboard");
+      const response = await axios.post("http://localhost:4000/api/login", usuario);
+      const { token } = response.data;
+
+    // Importación dinámica dentro de la funció
+    const decodedToken = jwtDecode(token);
+    localStorage.setItem('token', token);
+    console.log("Información del usuario:", decodedToken);
+
+    // Lógica para redirigir según el rol
+    if (decodedToken.rol === 3) {
+      navigate("/cliente1");
+    } else if (decodedToken.rol === 1) {
       navigate("/dashboard");
-    } catch (error) {
+    }
+  }
+    catch (error) {
       if (error.response && error.response.status === 401) {
         setLoginError("Usuario o contraseña incorrectos.");
         /* alert("Usuario o contraseña incorrectos."); */
