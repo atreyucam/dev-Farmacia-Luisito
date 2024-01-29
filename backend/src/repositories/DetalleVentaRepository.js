@@ -10,9 +10,20 @@ class DetalleVentaRepository{
         return await DetalleVenta.findAll();
     }
 
-    async obtenerDetalleVentaporId(id){
-        return await DetalleVenta.findByPk(id);
+    async obtenerDetalleVentaporId(idVenta) {
+        try {
+            const detallesVenta = await DetalleVenta.findAll({
+                where: { id_venta: idVenta }
+            });
+    
+            return detallesVenta; // Esto será un arreglo de objetos DetalleVenta
+        } catch (error) {
+            console.error(error);
+            throw new Error('Error al obtener detalles de venta');
+        }
     }
+    
+    
 
     async actualzarDetalleVenta(id, usuarioData){
         return await DetalleVenta.update(usuarioData, {where: {id_detalleVenta: id}});

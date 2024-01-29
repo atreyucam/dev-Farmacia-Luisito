@@ -96,6 +96,7 @@ router.get('/venta', venta.obtenerVentas);
 router.get('/obtenerVenta/:id', venta.obtenerVentaporId);
 router.put('/venta/:id', venta.actualzarVenta);
 router.delete('/venta/:id', venta.eliminarVenta);
+router.get('/venta/:id/factura', venta.generarFacturaPDF);
 
 // 10. Rutas - detalleVenta
 router.post('/detalleVenta', detalleVenta.crearDetalleVenta);
