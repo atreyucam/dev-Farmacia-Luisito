@@ -314,6 +314,9 @@ class VentaController{
 
              // Esperar a que el archivo se escriba completamente antes de enviarlo
             stream.on('finish', function() {
+                // Configurar Content-Disposition para forzar la descarga
+                res.setHeader('Content-Disposition', `attachment; filename=factura-${idVenta}.pdf`);
+                res.setHeader('Content-Type', 'application/pdf');
                 res.sendFile(filePath);
             });
         } catch (error) {

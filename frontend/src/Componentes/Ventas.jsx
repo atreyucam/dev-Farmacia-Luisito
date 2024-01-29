@@ -43,24 +43,56 @@ const Ventas = () => {
     };
 
     const agregarMedicamentoVenta = (medicamento) => {
-        const cantidadMedicamento = cantidad[medicamento.id_medicamento] || 1;
+        const cantidadMedicamento = cantidad[medicamento.id_medicamento] || 0;
         setVenta({
             ...venta,
             detallesVenta: [...venta.detallesVenta, { id_medicamento: medicamento.id_medicamento, cantidad: cantidadMedicamento }]
         });
     };
 
-    const realizarVenta = async () => {
+    // const realizarVenta = async () => {
+    //     try {
+    //         console.log("Datos de la venta a realizar:", venta);    
+    //         await axios.post('http://localhost:4000/api/realizarVenta', venta);
+    //         alert('Venta realizada con éxito');
+    //         // Resetear el estado para una nueva venta
+    //         setVenta({ id_usuario: null, detallesVenta: [] });
+    //     } catch (error) {
+    //         console.error('Error al realizar la venta:', error);
+    //     }
+    // };
+    const realizarVentaYDescargarFactura = async () => {
         try {
-            console.log("Datos de la venta a realizar:", venta);    
-            await axios.post('http://localhost:4000/api/realizarVenta', venta);
-            alert('Venta realizada con éxito');
-            // Resetear el estado para una nueva venta
-            setVenta({ id_usuario: null, detallesVenta: [] });
+            // Realizar la venta
+            const ventaResponse = await axios.post('http://localhost:4000/api/realizarVenta', venta);
+            const idVenta = ventaResponse.data.datosVenta.venta.id_venta; 
+            // console.log(ventaResponse);
+
+            // Solicitar la generación de la factura
+            const facturaResponse = await axios.get(`http://localhost:4000/api/venta/${idVenta}/factura`, { responseType: 'blob' });
+            
+            // // Crear un enlace para descargar la factura
+            const url = window.URL.createObjectURL(new Blob([facturaResponse.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', `factura-${idVenta}.pdf`);
+            document.body.appendChild(link);
+            link.click();
+    
+            // // Limpiar
+            link.parentNode.removeChild(link);
+            window.URL.revokeObjectURL(url);
+    
+            // // Restablecer el estado para una nueva venta
+            // setCedulaCliente(''); // Limpia la cédula del cliente
+            // setCliente(null); // Restablece el cliente a null
+            // setVenta({ id_usuario: null, detallesVenta: [] }); // Restablece los detalles de la venta
+            // setCantidad({}); // Limpia las cantidades seleccionadas
         } catch (error) {
-            console.error('Error al realizar la venta:', error);
+            console.error('Error al realizar la venta o al descargar la factura:', error);
         }
     };
+    
 
     return (
         <Container>
@@ -88,7 +120,7 @@ const Ventas = () => {
                                 <InputGroup>
                                     <Form.Control
                                         type="number"
-                                        value={cantidad[medicamento.id_medicamento] || 1}
+                                        value={cantidad[medicamento.id_medicamento] || 0}
                                         onChange={(e) => handleCantidadChange(medicamento.id_medicamento, e.target.value)}
                                         min={1}
                                     />
@@ -101,7 +133,7 @@ const Ventas = () => {
                     </ListGroup.Item>
                 ))}
             </ListGroup>
-            <Button variant="success" onClick={realizarVenta}>Realizar Venta</Button>
+            <Button variant="success" onClick={realizarVentaYDescargarFactura}>Realizar Venta</Button>
         </Container>
     );
 };
