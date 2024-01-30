@@ -1,0 +1,63 @@
+/* Dashboard.css */
+#sidebar-wrapper {
+    width: 15rem; /* Ancho del sidebar */
+    background-color: #343a40; /* Color de fondo del sidebar */
+    color: white; /* Color del texto */
+    height: 100vh; /* Altura completa de la pantalla */
+}
+
+
+
+.table-bordered th,
+.table-bordered td {
+    border: 1px solid #dee2e6;
+}
+
+.table thead th {
+    background-color: #f5f5f5;
+    /* color: #fff; */
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
+.btn {
+    color: #fff;
+    margin-right: 8px;
+}
+
+.thead-darkUser th{
+    color: #374151;
+    font-weight: 600;
+}
+
+.barraUser{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.barraUser input{
+    width: 70rem;
+}
+
+/* Estilos.css o Dashboard.css */
+.rx-background {
+    background-color: red; /* Color de fondo para RX */
+  }
+  
+  .otc-background {
+    background-color: green; /* Color de fondo para OTC */
+  }
+  

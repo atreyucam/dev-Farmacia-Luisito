@@ -95,7 +95,8 @@ const Ventas = () => {
     
 
     return (
-        <Container>
+        <Container fluid>
+            
             <Form>
                 <Form.Group className="mb-3">
                     <Form.Label>Cédula del Cliente</Form.Label>

@@ -3,6 +3,7 @@ import jwtDecode from 'jwt-decode';
 import axios from 'axios';
 import { Container, Row, Col, Navbar, Nav } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import '../css/Dashboard.css';
 
 // obtener medicamentos
 const obtenerMedicamentos = async () => {
@@ -25,6 +26,7 @@ export default function Dashboard() {
   const [loggedInUser, setLoggedInUser] = useState('');
   const [medicamentos, setMedicamentos] = useState([]);
   const [mostrarProductos, setMostrarProductos] = useState(false); 
+  const [filtro, setFiltro] = useState(""); 
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -41,6 +43,17 @@ export default function Dashboard() {
     const medicamentosObtenidos = await obtenerMedicamentos();
     setMedicamentos(medicamentosObtenidos);
   };
+
+// Función para filtrar los medicamentos por nombre
+  const medicamentosFiltrados = medicamentos.filter(medicamento =>
+    medicamento.nombreMedicamento.toLowerCase().includes(filtro.toLowerCase())
+  );
+
+  const getTipoClass = (tipo) => {
+    return tipo === 'RX' ? 'rx-background' : tipo === 'OTC' ? 'otc-background' : '';
+  };
+  
+
   return (
     <div>
       <Container fluid>
@@ -51,7 +64,9 @@ export default function Dashboard() {
               activeKey="/home"
               // onSelect={selectedKey => alert(`selected ${selectedKey}`)}
             >
-              <div className="sidebar-sticky"></div>
+              {/* <div className="sidebar-sticky">
+                
+              </div> */}
               <Nav.Item>
                 <Nav.Link href="/home">Home</Nav.Link>
               </Nav.Item>
@@ -59,7 +74,7 @@ export default function Dashboard() {
                 <Nav.Link eventKey="link-1">Clientes</Nav.Link>
               </Nav.Item>
               <Nav.Item onClick={handleMostrarProductos}>
-                <Nav.Link eventKey="link-2">Productos</Nav.Link> 
+                <Nav.Link eventKey="link-2">Medicamentos</Nav.Link> 
               </Nav.Item>
               <Nav.Item onClick={irAVentas}>
                 <Nav.Link eventKey="link-3">Ventas</Nav.Link>
@@ -81,18 +96,49 @@ export default function Dashboard() {
             </Navbar>
             {/* Espacio reservado para el contenido principal del dashboard */}
             {mostrarProductos && (
-              <div>
-                <h2>Medicamentos Disponibles</h2>
-                <ul>
-                  {medicamentos.map((medicamento, index) => (
-                    <li key={index}>
-                      {medicamento.nombreMedicamento} - Tipo: {medicamento.tipo} - descripcion: {medicamento.descripcion} -
-                      Cantidad: {medicamento.cantidad} - Precio: {medicamento.precioVenta}
-                    </li>
-                  ))}
-                </ul>
+            <div>
+              <h2>Medicamentos Disponibles</h2>
+              {/* Barra de búsqueda */}
+              <div className='barraUser'>
+              <input
+                type="text"
+                className="form-control my-3 "
+                placeholder="Buscar medicamento..."
+                value={filtro}
+                onChange={(e) => setFiltro(e.target.value)}
+              />
+
               </div>
-            )}
+
+              <div className="table-responsive">
+              
+                <table className="table table-bordered mt-3">
+                  <thead className="thead-darkUser">
+                    <tr>
+                      <th>ID</th>
+                      <th>Nombre del Medicamento</th>
+                      <th>Cantidad</th>
+                      <th>Precio</th>
+                      <th>Descripción</th>
+                      <th>Tipo</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {medicamentosFiltrados.map((medicamento, index) => (
+                      <tr key={index}>
+                        <td>{index + 1}</td>
+                        <td>{medicamento.nombreMedicamento}</td>
+                        <td>{medicamento.cantidad}</td>
+                        <td>{medicamento.precioVenta}</td>
+                        <td>{medicamento.descripcion}</td>
+                        <td className={getTipoClass(medicamento.tipo)}>{medicamento.tipo}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
           </Col>
         </Row>
       </Container>
