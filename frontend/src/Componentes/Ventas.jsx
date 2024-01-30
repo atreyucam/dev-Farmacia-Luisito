@@ -152,8 +152,8 @@ import {jwtDecode} from 'jwt-decode';
 import '../css/Dashboard.css';
 
 const Ventas = () => {
-        const [cedulaCliente, setCedulaCliente] = useState('');
-        const [loggedInUser, setLoggedInUser] = useState('');
+    const [cedulaCliente, setCedulaCliente] = useState('');
+    const [loggedInUser, setLoggedInUser] = useState('');
     const [cliente, setCliente] = useState(null);
     const [medicamentos, setMedicamentos] = useState([]);
     const [error, setError] = useState('');
@@ -161,8 +161,8 @@ const Ventas = () => {
         id_usuario: null,
         detallesVenta: []
     });
-
     const [cantidad, setCantidad] = useState({});
+    const [filtro, setFiltro] = useState(""); 
     const navigate = useNavigate();
 useEffect(() => {
     const token = localStorage.getItem('token');
@@ -179,6 +179,11 @@ useEffect(() => {
     const irMedicamentos = () => {
         navigate('/dashboard');
     };
+
+    // Filtrar medicamentos por nombre
+    const medicamentosFiltrados = medicamentos.filter(medicamento =>
+        medicamento.nombreMedicamento.toLowerCase().includes(filtro.toLowerCase())
+    );
 
     const buscarCliente = async () => {
         try {
@@ -214,17 +219,6 @@ useEffect(() => {
         });
     };
 
-    // const realizarVenta = async () => {
-    //     try {
-    //         console.log("Datos de la venta a realizar:", venta);    
-    //         await axios.post('http://localhost:4000/api/realizarVenta', venta);
-    //         alert('Venta realizada con éxito');
-    //         // Resetear el estado para una nueva venta
-    //         setVenta({ id_usuario: null, detallesVenta: [] });
-    //     } catch (error) {
-    //         console.error('Error al realizar la venta:', error);
-    //     }
-    // };
     const realizarVentaYDescargarFactura = async () => {
         try {
             // Realizar la venta
@@ -263,6 +257,7 @@ useEffect(() => {
         <Container fluid>
             <Row>
                 <Col xs={2} id="sidebar-wrapper">
+                <p>Farmacia Luisito</p>
                     {/* Sidebar copiado del Dashboard */}
                     <Nav
                         className="col-md-12 d-none d-md-block menu-User"
@@ -309,30 +304,46 @@ useEffect(() => {
                     </Form>
                     {error && <Alert variant="danger">{error}</Alert>}
                     {cliente && <div>Cliente: {cliente.nombreUsuario}</div>}
-                    <Button variant="secondary" onClick={obtenerMedicamentos}>Cargar Medicamentos</Button>
-                    <ListGroup>
-                        {medicamentos.map((medicamento, index) => (
-                            <ListGroup.Item key={index}>
-                                {medicamento.nombreMedicamento} - {medicamento.precioVenta}
-                                <Row className="align-items-center">
-                                    <Col md={4}>
-                                        <InputGroup>
-                                            <Form.Control
-                                                type="number"
-                                                value={cantidad[medicamento.id_medicamento] || 0}
-                                                onChange={(e) => handleCantidadChange(medicamento.id_medicamento, e.target.value)}
-                                                min={1}
-                                            />
-                                            <Button variant="success" onClick={() => agregarMedicamentoVenta(medicamento)}>
-                                                Agregar a la Venta
-                                            </Button>
-                                        </InputGroup>
-                                    </Col>
-                                </Row>
-                            </ListGroup.Item>
-                        ))}
-                    </ListGroup>
-                    <Button variant="success" onClick={realizarVentaYDescargarFactura}>Realizar Venta</Button>
+                    
+                    {/* Barra de búsqueda para medicamentos */}
+                    <div className='barraUserVenta'>
+                            <input
+                                type="text"
+                                className="form-control my-3"
+                                placeholder="Buscar medicamento..."
+                                value={filtro}
+                                onChange={(e) => setFiltro(e.target.value)}
+                            />
+
+                    </div>
+                    <Button variant="secondary" onClick={obtenerMedicamentos} className='buttonCargaMed'>Cargar Medicamentos</Button>
+                        <ListGroup>
+                            {medicamentosFiltrados.map((medicamento, index) => (
+                                <ListGroup.Item key={index}>
+                                            <div className='itemsVenta'>
+                                    {medicamento.nombreMedicamento} - {medicamento.precioVenta}
+                                    <Row className="align-items-center">
+                                        <Col md={4}>
+                                                
+                                            <InputGroup className='camposVenta'>
+                                                <Form.Control
+                                                    type="number"
+                                                    value={cantidad[medicamento.id_medicamento] || 0}
+                                                    onChange={(e) => handleCantidadChange(medicamento.id_medicamento, e.target.value)}
+                                                    min={1}
+                                                />
+                                                <Button variant="success" onClick={() => agregarMedicamentoVenta(medicamento)}>
+                                                    Agregar a la Venta
+                                                </Button>
+                                            </InputGroup>
+                                        </Col>
+                                    </Row>
+                                            </div>
+                                </ListGroup.Item>
+                            ))}
+                        </ListGroup>
+                        <Button variant="success" onClick={realizarVentaYDescargarFactura} className='buttonVenta'>Realizar Venta</Button>
+                    
             </div>
                     
                 </Col>

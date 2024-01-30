@@ -130,3 +130,43 @@
     margin-left: 15px;
     margin-top: 15px;
 }
+.barraUserVenta{
+    /* width: 60px; */
+    /* border: 1px solid rebeccapurple; */
+    display: flex;
+    justify-content: center;
+}
+
+.barraUserVenta input{
+    width: 50rem;
+    background-color: rgba(223, 248, 216, 0.681);
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+.itemsVenta{
+    border: solid 1px rgb(223, 223, 228);
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 12px;
+    
+}
+.camposVenta{
+    /* border: 1px solid rebeccapurple; */
+    display: flex;
+    width: 300px;
+    flex-direction: row;
+    margin: 0 5px;
+}
+.buttonCargaMed{
+    margin-top: 5px;
+    margin-bottom: 20px;
+    background-color: rgba(245, 204, 122, 0.827);
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    border: 1px;
+    color: #33260c;
+}
+.buttonVenta{
+    margin-top: 15px;
+}
