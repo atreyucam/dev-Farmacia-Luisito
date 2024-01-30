@@ -10,6 +10,7 @@ import Cliente1 from "./Paginas/Cliente1";
 import ProductosGeneral from "./Paginas/ProductosGenerales";
 // import BajoReceta from "./Paginas/BajoReceta";
 import Ventas from "./Componentes/Ventas";
+import Alertas from "./Paginas/Alertas";
 // import Alertas from "./Paginas/Alertas";
 
 /* Nueva version  version 3*/ 
@@ -27,6 +28,7 @@ export default function App() {
           {/* <Route path="bajoReceta" element={<BajoReceta />} /> */}
           <Route path="/Ventas" element={<Ventas/>} />
           {/* <Route path="/Alertas" element={<Alertas/>}></Route> */}
+          <Route path="alertas" element={<Alertas />} />
         </Routes>
       </BrowserRouter>
     </div>
