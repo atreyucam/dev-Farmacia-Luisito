@@ -1,10 +1,7 @@
 import React, { useState } from "react";
 
 import MyNavbar from "../Componentes/Navbar";
-<<<<<<< HEAD
 // import Col from "react-bootstrap/Col";
-=======
->>>>>>> f5e2ceaa7c1b70ca589c066b049007142d5f9f94
 import Form from "react-bootstrap/Form";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";

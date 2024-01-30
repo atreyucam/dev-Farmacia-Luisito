@@ -144,7 +144,7 @@ export default function Dashboard() {
   };
 
   return (
-    <div>
+    <div className="userModif">
       <Container fluid>
         <Row>
           <Col xs={2} id="sidebar-wrapper">

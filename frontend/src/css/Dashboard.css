@@ -1,5 +1,8 @@
 /* Dashboard.css */
 
+.userModif{
+    background-color: snow;
+}
 
 #sidebar-wrapper {
     width: 13rem; /* Ancho del sidebar */
