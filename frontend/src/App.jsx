@@ -3,13 +3,14 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 /* importaciones  */
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Pagina_General from "./pages/Pagina_General";
-import Registro from "./pages/Registro";
+import Pagina_General from "./Paginas/Pagina_General";
+import Registro from "./Paginas/Registro";
 import Dashboard from "./Componentes/Dashboard";
-import Cliente1 from "./pages/Cliente1";
-import ProductosGeneral from "./pages/ProductosGenerales";
+import Cliente1 from "./Paginas/Cliente1";
+import ProductosGeneral from "./Paginas/ProductosGenerales";
 // import BajoReceta from "./Paginas/BajoReceta";
 import Ventas from "./Componentes/Ventas";
+// import Alertas from "./Paginas/Alertas";
 
 /* Nueva version  version 3*/ 
 export default function App() {
@@ -25,6 +26,7 @@ export default function App() {
           <Route path="/produGenerales" element={<ProductosGeneral />} />
           {/* <Route path="bajoReceta" element={<BajoReceta />} /> */}
           <Route path="/Ventas" element={<Ventas/>} />
+          {/* <Route path="/Alertas" element={<Alertas/>}></Route> */}
         </Routes>
       </BrowserRouter>
     </div>

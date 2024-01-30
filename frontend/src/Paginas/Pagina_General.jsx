@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import MyNavbar from "../Componentes/Navbar";
-import Col from "react-bootstrap/Col";
+// import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
@@ -11,7 +11,7 @@ import FondoImagen from "../Imagenes/farmacia.jpg";
 import axios from "axios";
 import { Alert } from "react-bootstrap";
 import {  useNavigate } from "react-router-dom";
-import jwtDecode from 'jwt-decode';
+import {jwtDecode} from 'jwt-decode';
 
 export default function Pagina_General() {
   const navigate = useNavigate();  
